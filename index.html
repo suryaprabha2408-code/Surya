@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Typing Speed Test</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #quote {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        resize: none;
+    }
+    button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        border: none;
+        background: #2a9d8f;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #21867a;
+    }
+    .result {
+        font-size: 18px;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Typing Speed Test</h1>
+    <p id="quote">The quick brown fox jumps over the lazy dog.</p>
+    
+    <textarea id="inputArea" placeholder="Start typing here..." disabled></textarea><br>
+    
+    <button id="startBtn">Start Test</button>
+    
+    <p class="result" id="result"></p>
+</div>
+
+<script>
+let startTime, endTime;
+let quoteText = document.getElementById("quote").innerText;
+let inputArea = document.getElementById("inputArea");
+let startBtn = document.getElementById("startBtn");
+let result = document.getElementById("result");
+
+startBtn.addEventListener("click", function(){
+    inputArea.value = "";
+    inputArea.disabled = false;
+    inputArea.focus();
+    startTime = new Date();
+    startBtn.disabled = true;
+    result.innerText = "";
+});
+
+inputArea.addEventListener("input", function(){
+    let typedText = inputArea.value;
+    if(typedText === quoteText){
+        endTime = new Date();
+        let totalTime = (endTime - startTime) / 1000; // in seconds
+        let wordCount = quoteText.split(" ").length;
+        let speed = Math.round((wordCount / totalTime) * 60);
+        
+        result.innerText = `?? You typed at ${speed} words per minute!`;
+        inputArea.disabled = true;
+        startBtn.disabled = false;
+    }
+});
+</script>
+
+</body>
+</html>
